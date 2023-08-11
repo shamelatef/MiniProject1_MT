@@ -21,9 +21,9 @@ typedef struct MenuOptions{
 }MenuOptions;
 extern MenuOptions *MO;
 
-extern unsigned int *VehicleSpeed;
-extern unsigned char *AcStatus;
-extern unsigned char *EngineControllerStatus;
+extern unsigned int VehicleSpeed;
+extern unsigned char AcStatus;
+extern unsigned char EngineControllerStatus;
 
 
 
@@ -39,7 +39,7 @@ extern unsigned char *EngineControllerStatus;
  *
  * */
 /*First menu*/
-unsigned char TurnOn_OFF(unsigned char c)
+unsigned char Menu_1(unsigned char c)
 
 {
 
@@ -79,27 +79,24 @@ return result;
 
  * */
 /*Second Menu*/
-unsigned char SetMenu(unsigned char c)
+unsigned char Menu_2(unsigned char c)
 {
 	unsigned char result;
 
 	switch (c)
 	{
 	case 'a':
-		//Prompt();
+
 		result =CALL_ENGINE_OFF;
 		break;
 	case 'b':
 		result=CALL_TRAFFIC_LIGHT;
-		//TrafficLightColor_UserInput();
 		break;
 	case 'c':
 		result =CALL_ROOM_TEMP;
-		//RoomTemperature_UserInput();
 		break;
 	case 'd':
 		result = CALL_ENGINE_TEMP;
-		//EngineTemperature_UserInput();
 		break;
 	default:
 		printf("Wrong Char - Try Again\n");
@@ -122,17 +119,17 @@ unsigned char SetMenu(unsigned char c)
 void DisplayCurrentState()
 {
 	printf("Engine is: %s\n",OnOffString[1]);
-	if (*AcStatus == AC_ON)
+	if (AcStatus == AC_ON)
 		printf("AC: %s\n",OnOffString[AC_ON] );
-	if (*AcStatus == AC_OFF)
+	if (AcStatus == AC_OFF)
 		printf("AC: %s\n",OnOffString[AC_OFF] );
 
 
-	printf("Vehicle Speed: %u Km/hr\n",*VehicleSpeed);
+	printf("Vehicle Speed: %u Km/hr\n",VehicleSpeed);
 	printf("Room Temperature: %f C\n",MO -> roomTemperature);
 
 #if(WITH_ENGINE_TEMP_CONTROLLER)
-	printf("Engine Temperature Controller: %s\n",OnOffString[*EngineControllerStatus]);
+	printf("Engine Temperature Controller: %s\n",OnOffString[EngineControllerStatus]);
 	printf("Engine Temperature: %f C\n\n",MO ->engineTemperature);
 #endif
 
